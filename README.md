@@ -1,1 +1,1 @@
-# Jadyn-s-Website
+#Solara Personal AI
