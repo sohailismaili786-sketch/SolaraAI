@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solara AI Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #0f172a; color: white; }
+        .card { background: #1e293b; padding: 20px; margin: 20px; border-radius: 10px; }
+        button { padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Solara AI — Market Dashboard</h1>
+
+    <div class="card">
+        <h2>NVDA Analysis</h2>
+        <button onclick="loadNVDA()">Run Analysis</button>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        async function loadNVDA() {
+            const res = await fetch("http://127.0.0.1:8000/nvda-analysis");
+            const data = await res.json();
+            document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
