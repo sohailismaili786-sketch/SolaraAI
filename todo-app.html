@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; }
+        ul { list-style: none; padding: 0; }
+        li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ccc; }
+        .task { flex: 1; }
+        .actions { display: flex; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task" />
+        <select id="categorySelect">
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="School">School</option>
+        </select>
+        <input type="date" id="dueDateInput" />
+        <button id="addTaskBtn">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const categorySelect = document.getElementById('categorySelect');
+        const dueDateInput = document.getElementById('dueDateInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        const renderTasks = () => {
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class='task'>${task.name} - ${task.category} - Due: ${task.dueDate}</span>`;
+                const actions = document.createElement('div');
+                actions.className = 'actions';
+                actions.innerHTML = `<button onclick='editTask(${index})'>Edit</button><button onclick='deleteTask(${index})'>Delete</button>`;
+                li.appendChild(actions);
+                taskList.appendChild(li);
+            });
+        };
+
+        const addTask = () => {
+            const newTask = {
+                name: taskInput.value,
+                category: categorySelect.value,
+                dueDate: dueDateInput.value
+            };
+            tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+            taskInput.value = '';
+            dueDateInput.value = '';
+        };
+
+        const deleteTask = (index) => {
+            tasks.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        };
+
+        const editTask = (index) => {
+            const task = tasks[index];
+            taskInput.value = task.name;
+            categorySelect.value = task.category;
+            dueDateInput.value = task.dueDate;
+            deleteTask(index);
+        };
+
+        addTaskBtn.addEventListener('click', addTask);
+        renderTasks();
+    </script>
+</body>
+</html>
