@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solara Stock Market AI Dashboard</title>
     <link rel="stylesheet" href="styles.css">
@@ -42,6 +43,32 @@
     </main>
     <footer>
         <p>&copy; 2026 Solara Stock Market AI. All rights reserved.</p>
+    <title>Solara AI</title>
+</head>
+<body>
+    <h1>Welcome to Solara AI</h1>
+    <div id="todo-app">
+        <h2>To-Do App</h2>
+        <input type="text" id="todo-input" placeholder="Add a new task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="todo-list"></ul>
+    </div>
+    <footer>
+        <p>© 2026 Solara Personalized AI. All rights reserved.</p>
+        <p>Disclaimer: Solara AI learns and improves continuously from user interactions.</p>
     </footer>
+    <script>
+        function addTask() {
+            const input = document.getElementById('todo-input');
+            const newTask = input.value;
+            if (newTask) {
+                const list = document.getElementById('todo-list');
+                const listItem = document.createElement('li');
+                listItem.textContent = newTask;
+                list.appendChild(listItem);
+                input.value = '';
+            }
+        }
+    </script>
 </body>
 </html>
